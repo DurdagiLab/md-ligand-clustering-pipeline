@@ -8,8 +8,6 @@
 
 ---
 
-Overview
-
 This script implements an end-to-end workflow for analyzing Molecular Dynamics (MD) trajectories produced in **Schrödinger/Desmond** environments. The pipeline is designed to identify metastable ligand states and rank them based on a composite score derived from occupancy, binding site contacts, and structural stability.
 
 It automates the following steps:
