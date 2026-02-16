@@ -8,16 +8,7 @@
 
 ---
 
-## Author Information
-
-**Developer:** Mine Isaoglu, Ph.D.  
-**Principal Investigator:** Serdar Durdagi, Ph.D.  
-**Affiliation:** Computational Drug Design Center (HITMER), Faculty of Pharmacy, Bahçeşehir University, Istanbul, Turkey.  
-**Version:** February 2026
-
----
-
-## Abstract
+Abstract
 
 This script implements an end-to-end workflow for analyzing Molecular Dynamics (MD) trajectories produced in **Schrödinger/Desmond** environments. The pipeline is designed to identify metastable ligand states and rank them based on a composite score derived from occupancy, binding site contacts, and structural stability.
 
