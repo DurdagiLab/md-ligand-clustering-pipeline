@@ -8,7 +8,7 @@
 
 ---
 
-Abstract
+Overview
 
 This script implements an end-to-end workflow for analyzing Molecular Dynamics (MD) trajectories produced in **Schrödinger/Desmond** environments. The pipeline is designed to identify metastable ligand states and rank them based on a composite score derived from occupancy, binding site contacts, and structural stability.
 
@@ -22,7 +22,7 @@ It automates the following steps:
 
 ---
 
-## Methodology
+## Key Method Choices
 
 ### 1. Alignment Strategy
 A rigid-body alignment is performed via the **Kabsch algorithm** using a protein backbone ASL selection (default: `protein and backbone and not H`). This removes global translation/rotation so that clustering focuses purely on internal ligand conformational variability.
