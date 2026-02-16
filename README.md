@@ -2,12 +2,6 @@
 
 **Automated Conformational Clustering and Kinetic Analysis for Molecular Dynamics Trajectories**
 
-**Developed by:** Mine Isaoglu, Ph.D.  
-**Affiliation:** Computational Drug Design Center (HITMER), Bahçeşehir University  
-**Supervisor:** Serdar Durdagi, Ph.D.  
-
----
-
 ## Abstract
 
 This repository contains a high-throughput Python pipeline designed to analyze ligand behavior in Molecular Dynamics (MD) simulations produced by the Schrödinger/Desmond suite. 
