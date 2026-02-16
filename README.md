@@ -1,4 +1,4 @@
-# MD Ligand Cluster Pipeline
+# MD Trajectory Ligand Clustering Pipeline
 
 ![Python](https://img.shields.io/badge/Python-3.6%2B-blue)
 ![Platform](https://img.shields.io/badge/Platform-Schr%C3%B6dinger-green)
