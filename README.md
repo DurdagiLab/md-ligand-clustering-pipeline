@@ -66,7 +66,7 @@ Clusters are ranked using robust percentile scaling (10th–90th) of the followi
 
 This script depends on the **Schrödinger Python API**. It must be run within the Schrödinger environment using the `$SCHRODINGER/run` wrapper.
 
-* **Schrödinger Suite** (2018-4 or later recommended)
+* **Schrödinger Suite**
 * **Python 3** (Included in Schrödinger)
 * Standard libraries: `numpy`, `argparse`, `csv`, `glob`.
 * Optional: `matplotlib` (for PCA plots).
@@ -83,6 +83,7 @@ $SCHRODINGER/run md_ligand_cluster_pipeline.py \
   --out_cms /path/to/desmond_job_FILENAME-out.cms \
   --trj_dir /path/to/desmond_job_FILENAME_trj \
   --out_prefix analysis_result
+```
 
 ### citation
 If you use this tool in your research or publication, please cite it as follows:
