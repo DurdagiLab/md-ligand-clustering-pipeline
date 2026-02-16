@@ -38,11 +38,3 @@ Clone this repository and ensure the script is executable:
 git clone [https://github.com/YourUsername/md_ligand_cluster_pipeline.git](https://github.com/YourUsername/md_ligand_cluster_pipeline.git)
 cd md_ligand_cluster_pipeline
 chmod +x md_ligand_cluster_pipeline.py
-
-## Usage
-Run the script using the Schrödinger run wrapper.
-
-$SCHRODINGER/run md_ligand_cluster_pipeline.py \
-  --out_cms /path/to/desmond_job-out.cms \
-  --trj_dir /path/to/desmond_job_trj \
-  --out_prefix my_analysis_v1
