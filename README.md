@@ -1,40 +1,85 @@
 # MD Ligand Cluster Pipeline
 
-**Automated Conformational Clustering and Kinetic Analysis for Molecular Dynamics Trajectories**
+![Python](https://img.shields.io/badge/Python-3.6%2B-blue)
+![Platform](https://img.shields.io/badge/Platform-Schr%C3%B6dinger-green)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-## Abstract
+**An automated workflow for extracting, aligning, clustering, and ranking ligand conformational states from Molecular Dynamics (MD) trajectories.**
 
-This repository contains a high-throughput Python pipeline designed to analyze ligand behavior in Molecular Dynamics (MD) simulations produced by the Schrödinger/Desmond suite. 
+---
 
-The pipeline automates the extraction of trajectory frames, performs rigid-body alignment on protein backbones, and clusters ligand conformations using an unsupervised K-Medoids algorithm. Beyond simple clustering, the tool provides a **Composite Ranking Score** to identify the most biologically relevant binding poses based on occupancy, stability, and protein-ligand interaction profiles.
+## 📌 Author Information
 
-## Key Features
+**Developer:** Mine Isaoglu, Ph.D.  
+**Principal Investigator:** Serdar Durdagi, Ph.D.  
+**Affiliation:** Computational Drug Design Center (HITMER), Faculty of Pharmacy, Bahçeşehir University, Istanbul, Turkey.  
+**Version:** February 2026
 
-* **Automated Extraction:** Wraps `trj2mae.py` to extract and process frames from raw Desmond trajectories (`.cms` / `_trj`).
-* **Structural Alignment:** Implements the **Kabsch Algorithm** to align all frames to a reference protein backbone, isolating ligand motion.
-* **Robust Feature Extraction:** Uses flattened heavy-atom coordinates (True RMSD metric) with atom-name mapping to handle topology consistency.
-* **Dimensionality Reduction:** Optional **PCA (SVD)** implementation to visualize the conformational landscape.
-* **K-Medoids Clustering:** Robust clustering (PAM-like) with Silhouette Score optimization to automatically determine the optimal number of clusters ($k$).
-* **Kinetic Analysis:** Generates transition matrices and dwell time statistics (run lengths) for each cluster.
-* **Cluster Ranking:** Ranks clusters using a weighted score of:
-    * Occupancy
-    * Binding Site Contact Fraction
-    * Center of Mass (COM) Stability
-    * Cluster Tightness (Internal RMSD)
-    * Interaction Strength Proxies (H-bond, Pi-Pi, etc.)
+---
 
-## Prerequisites
+## 📖 Abstract
 
-This script depends on the **Schrödinger Python API**. It must be run within the Schrödinger environment.
+This script implements an end-to-end workflow for analyzing Molecular Dynamics (MD) trajectories produced in **Schrödinger/Desmond** environments. The pipeline is designed to identify metastable ligand states and rank them based on a composite score derived from occupancy, binding site contacts, and structural stability.
 
-* **Software:** Schrödinger Suite (2018-4 or newer recommended).
-* **Environment:** Access to the `$SCHRODINGER/run` command.
+It automates the following steps:
+1.  **Extraction:** Extracts frames from trajectory bundles.
+2.  **Alignment:** Aligns frames to a reference using protein backbone atoms (Kabsch algorithm).
+3.  **Featurization:** Represents ligand conformations via flattened heavy-atom coordinates.
+4.  **Clustering:** Performs **k-medoids** clustering (with optional PCA dimensionality reduction).
+5.  **Ranking:** Ranks clusters using a multi-parameter composite score.
+6.  **Kinetics:** Analyzes transition matrices and dwell times.
 
-## Installation
+---
 
-Clone this repository and ensure the script is executable:
+## ⚙️ Methodology
 
+### 1. Alignment Strategy
+A rigid-body alignment is performed via the **Kabsch algorithm** using a protein backbone ASL selection (default: `protein and backbone and not H`). This removes global translation/rotation so that clustering focuses purely on internal ligand conformational variability.
+
+### 2. Ligand Representation
+* **Features:** Ligand heavy-atom Cartesian coordinates flattened into a 1D vector of length $3 \times N_{atoms}$.
+* **Atom Mapping:**
+    * *Primary:* Uses atom names if unique.
+    * *Fallback:* Uses ASL/Index order (assumes consistent topology).
+* **Metric:** True RMSD (Root Mean Square Deviation).
+
+### 3. Clustering Algorithm
+* **Method:** **K-medoids** (PAM-like initialization).
+* **Space:** Can cluster in full coordinate space or PCA-reduced space.
+* **Optimization:** Automatically selects the optimal number of clusters ($k$) using **Silhouette Analysis**.
+* **Refinement:** If clustering is performed in PCA space, medoids are recomputed in full space to ensure representative structures are physically valid.
+
+### 4. Cluster Ranking (Composite Score)
+Clusters are ranked using robust percentile scaling (10th–90th) of the following weighted metrics:
+
+| Metric | Weight | Description |
+| :--- | :--- | :--- |
+| **Occupancy** | 20% | Population of the cluster relative to total frames. |
+| **Site Contact** | 40% | Fraction of binding site residues in contact with the ligand. |
+| **Stability** | 20% | Center-of-Mass (COM) standard deviation (lower is better). |
+| **Tightness** | 15% | Pairwise RMSD within the cluster (lower is better). |
+| **Interactions** | 5% | Proxy score for H-bonds, Pi-Pi, etc. |
+
+---
+
+## 💻 Prerequisites
+
+This script depends on the **Schrödinger Python API**. It must be run within the Schrödinger environment using the `$SCHRODINGER/run` wrapper.
+
+* **Schrödinger Suite** (2018-4 or later recommended)
+* **Python 3** (Included in Schrödinger)
+* Standard libraries: `numpy`, `argparse`, `csv`, `glob`.
+* Optional: `matplotlib` (for PCA plots).
+
+---
+
+## 🚀 Usage
+
+Save the script as `md_ligand_cluster_pipeline.py`.
+
+### Basic Command
 ```bash
-git clone [https://github.com/DurdagiLab/md_ligand_cluster_pipeline.git](https://github.com/DurdagiLab/md_ligand_cluster_pipeline.git)
-cd md_ligand_cluster_pipeline
-chmod +x md_ligand_cluster_pipeline.py
+$SCHRODINGER/run md_ligand_cluster_pipeline.py \
+  --out_cms /path/to/desmond_job-out.cms \
+  --trj_dir /path/to/desmond_job_trj \
+  --out_prefix analysis_result
