@@ -76,7 +76,7 @@ $SCHRODINGER/run md_ligand_cluster_pipeline.py \
   --out_prefix analysis_result
 ```
 
-### citation
+### Citation
 If you use this tool in your research or publication, please cite it as follows:
 
 İsaoğlu, M., & Durdağı, S. (2026). MD Ligand Clustering Tool (Version 1.0) [Source Code]. 
