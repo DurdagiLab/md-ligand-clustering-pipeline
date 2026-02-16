@@ -8,7 +8,7 @@
 
 ---
 
-## 📌 Author Information
+## Author Information
 
 **Developer:** Mine Isaoglu, Ph.D.  
 **Principal Investigator:** Serdar Durdagi, Ph.D.  
@@ -17,7 +17,7 @@
 
 ---
 
-## 📖 Abstract
+## Abstract
 
 This script implements an end-to-end workflow for analyzing Molecular Dynamics (MD) trajectories produced in **Schrödinger/Desmond** environments. The pipeline is designed to identify metastable ligand states and rank them based on a composite score derived from occupancy, binding site contacts, and structural stability.
 
@@ -31,7 +31,7 @@ It automates the following steps:
 
 ---
 
-## ⚙️ Methodology
+## Methodology
 
 ### 1. Alignment Strategy
 A rigid-body alignment is performed via the **Kabsch algorithm** using a protein backbone ASL selection (default: `protein and backbone and not H`). This removes global translation/rotation so that clustering focuses purely on internal ligand conformational variability.
@@ -62,7 +62,7 @@ Clusters are ranked using robust percentile scaling (10th–90th) of the followi
 
 ---
 
-## 💻 Prerequisites
+## Prerequisites
 
 This script depends on the **Schrödinger Python API**. It must be run within the Schrödinger environment using the `$SCHRODINGER/run` wrapper.
 
@@ -73,13 +73,19 @@ This script depends on the **Schrödinger Python API**. It must be run within th
 
 ---
 
-## 🚀 Usage
+## Usage
 
 Save the script as `md_ligand_cluster_pipeline.py`.
 
 ### Basic Command
 ```bash
 $SCHRODINGER/run md_ligand_cluster_pipeline.py \
-  --out_cms /path/to/desmond_job-out.cms \
-  --trj_dir /path/to/desmond_job_trj \
+  --out_cms /path/to/desmond_job_FILENAME-out.cms \
+  --trj_dir /path/to/desmond_job_FILENAME_trj \
   --out_prefix analysis_result
+
+### citation
+If you use this tool in your research or publication, please cite it as follows:
+
+İsaoğlu, M., & Durdağı, S. (2026). MD Ligand Clustering Tool (Version 1.0) [Source Code]. 
+[https://github.com/DurdagiLab/md-ligand-clustering-pipeline](https://github.com/DurdagiLab/md-ligand-clustering-pipeline)
