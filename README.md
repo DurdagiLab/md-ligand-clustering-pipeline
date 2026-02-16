@@ -35,6 +35,6 @@ This script depends on the **Schrödinger Python API**. It must be run within th
 Clone this repository and ensure the script is executable:
 
 ```bash
-git clone [https://github.com/YourUsername/md_ligand_cluster_pipeline.git](https://github.com/YourUsername/md_ligand_cluster_pipeline.git)
+git clone [https://github.com/DurdagiLab/md_ligand_cluster_pipeline.git](https://github.com/DurdagiLab/md_ligand_cluster_pipeline.git)
 cd md_ligand_cluster_pipeline
 chmod +x md_ligand_cluster_pipeline.py
